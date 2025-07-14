@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Report</title>
+</head>
+<body>
+    <h2>Attendance Report</h2>
+
+    <form method="get">
+        <label>Filter by Class:</label>
+        <select name="class">
+            <option value="">All Classes</option>
+            {% for cls in classes %}
+                <option value="{{ cls }}" {% if selected_class == cls %}selected{% endif %}>{{ cls }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Filter by Date:</label>
+        <input type="date" name="date" value="{{ selected_date }}"/>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <table border="1" cellpadding="5" style="margin-top: 20px;">
+        <tr>
+            <th>Date</th>
+            <th>Student</th>
+            <th>Class</th>
+            <th>Status</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.date }}</td>
+            <td>{{ record.student.name }}</td>
+            <td>{{ record.student.class_name }}</td>
+            <td>{{ record.present|yesno:"✅ Present,❌ Absent" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

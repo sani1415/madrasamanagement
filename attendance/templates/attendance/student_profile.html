@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ student.name }} - Attendance</title>
+</head>
+<body>
+    <h2>Student Profile: {{ student.name }}</h2>
+    <p><strong>Class:</strong> {{ student.class_name }}</p>
+    <p><strong>Roll:</strong> {{ student.roll_number }}</p>
+    <p><strong>Unique ID:</strong> {{ student.unique_id }}</p>
+
+    <h3>Attendance Summary</h3>
+    <ul>
+        <li>Total Days: {{ total_days }}</li>
+        <li>Present Days: {{ days_present }}</li>
+        <li>Attendance %: {{ attendance_percentage }}%</li>
+    </ul>
+
+    <h3>Attendance Records</h3>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        {% for record in attendance_records %}
+        <tr>
+            <td>{{ record.date }}</td>
+            <td>{{ record.present|yesno:"✅ Present,❌ Absent" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p><a href="/attendance/students/">← Back to student list</a></p>
+</body>
+</html>
